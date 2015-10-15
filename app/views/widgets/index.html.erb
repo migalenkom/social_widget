@@ -1,0 +1,10 @@
+<h1>Social Widgets</h1>
+
+<% @result.each do |wdg| %>
+
+<%= render "#{wdg[:provider]}", widget:wdg  if wdg%>
+
+    <% end %>
+
+
+<%= link_to "Add widget", new_user_widget_path(current_user), remote:true , id:"createNewWidget", data:{toggle:"popover", container:"body"}, class:"btn btn-md btn-primary" %>

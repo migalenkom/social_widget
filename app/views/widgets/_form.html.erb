@@ -1,0 +1,8 @@
+<div>
+  <%= simple_form_for [current_user,@widget] , remote:true do |f| %>
+      <%= f.input :title, placeholder: 'Name' %>
+      <%= f.collection_select :authorization_id, current_user.authorizations,  :id, :provider, {} , class: 'form-control'  %>
+      <%= f.button :submit, class: 'btn btn-primary btn-md' %>
+
+  <% end %>
+</div>
