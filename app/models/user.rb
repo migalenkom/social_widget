@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s).first_or_initialize
     authorization.token = auth.credentials.token
     authorization.secret = auth.credentials.secret
+    binding.pry
 
     if authorization.user.blank?
       user = current_user || User.where('email = ?', auth["info"]["email"]).first
@@ -46,8 +47,8 @@ class User < ActiveRecord::Base
      end
      authorization.username = auth.info.nickname
      authorization.user_id = user.id
-     authorization.save
    end
-   authorization.user
- end
+    authorization.save
+    authorization.user
+  end
 end
