@@ -88,55 +88,18 @@ class WidgetsController < ApplicationController
 
   def fetch_google_data(auth)
 
-      # client = Google::APIClient.new
-      # client.authorization.access_token=auth.token
+       GooglePlus.access_token = auth.fresh_token
+       googlePerson = GooglePlus::Person.get(auth.uid)
+       googleActivity = GooglePlus::Activity.for_person(auth.uid)
 
-
-     # binding.pry
-     # new_auth = refresh_auth_token(auth)
-     # auth.token = new_auth.access_token
-     # auth.save
-     # refresh_token(auth)
-     # GooglePlus.access_token = auth.token
-     # googlePerson = GooglePlus::Person.get(101583788431523019210)
-     # googleActivity = GooglePlus::Activity.get(101583788431523019210)
-
-     {provider: auth.provider}
-
+       {provider: auth.provider, google_persone: googlePerson, google_activity: googleActivity }
   end
 
   def refresh_auth_token(auth)
 
-    # client = Google::APIClient.new(application_name: 'social_widget', access_type:'offline')
-    # client.authorization.client_id = ENV['GOOGLE_KEY']
-    # client.authorization.client_secret = ENV['GOOGLE_SECRET']
-    # client.authorization.grant_type = 'refresh_token'
-    # client.authorization.refresh_token =
-    # client.authorization.fetch_access_token!
-    # client.authorization
-
   end
 
-  def refresh_token(auth)
-  #   data = {
-  #       :client_id => ENV['GOOGLE_KEY'],
-  #       :client_secret => ENV['GOOGLE_SECRET'],
-  #       :refresh_token => ,
-  #       :grant_type => "refresh_token",
-  #       :access_type  => 'offline'
-  #   }
-  #   @response = ActiveSupport::JSON.decode(RestClient.post "https://accounts.google.com/o/oauth2/token", data)
-  #
-  #   if @response["access_token"].present?
-  #     # Save your token
-  #   else
-  #     # No Token
-  #   end
-  # rescue RestClient::BadRequest => e
-  #   # Bad request
-  # rescue
-  #   # Something else bad happened
-  end
+
 
   def set_widget
 

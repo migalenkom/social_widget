@@ -26,14 +26,12 @@ class User < ActiveRecord::Base
     authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s).first_or_initialize
     authorization.token = auth.credentials.token
     authorization.secret = auth.credentials.secret
-    binding.pry
+    authorization.refresh_token = auth.credentials.refresh_token
+    authorization.expires_at = auth.credentials.expires_at
+    authorization.expires = auth.credentials.expires
 
     if authorization.user.blank?
       user = current_user || User.where('email = ?', auth["info"]["email"]).first
-      p "="*170
-      p auth.info
-      p auth.info.name
-      p auth.info.email
       if user.blank?
        user = User.new
        user.password = Devise.friendly_token[0,10]

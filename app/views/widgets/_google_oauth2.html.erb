@@ -4,29 +4,26 @@
       <div class="col-md-4">
         <div class="well well-sm">
           <div class="media">
-            <a target="_blank" class="thumbnail pull-left" href="<%=   %>">
-              <img class="media-object" src="<%= %>">
+            <a target="_blank" class="thumbnail pull-left" href="<%= widget[:google_persone].url %>">
+              <img class="media-object" src="<%=   widget[:google_persone].image.url %>">
             </a>
             <div class="media-body">
-              <h4 class="media-heading" style="padding: 5px"><a target="_blank" href="<%= %>">  <%= %></a> on Google </h4>
-              <!--<p><span class="label label-info">888 photos</span> <span class="label label-warning">150 followers</span></p>-->
-              <p>
-                <!--<a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>-->
-                <!--<a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>-->
-                <!--<a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>-->
-              </p>
+              <h4 class="media-heading" style="padding: 5px"><a target="_blank" href="<%= widget[:google_persone].url %>">  <%= widget[:google_persone].name.given_name%></a> on Google </h4>
               <p><b>New on my page</b></p>
               <p>
-              <ol>
-                <%# fb_profile[:fb_profile]['posts']['data'].each do |msg| %>
+              <p>
+                <% widget[:google_activity].each do |msg| %>
 
-                    <%# if msg['message'] %>
-                        <li><%#= msg['message'] %></li>
-                    <%# end %>
-                <%# end %>
+                    <% if msg.object.content.present? %>
+                        <a target="_blank" class="thumbnail pull-left" href="<%= msg.url %>">
+                          <%= msg.object.content %>
+                        </a>
+
+                    <% end %>
+                <% end %>
               </p>
-              </ol>
-              <a target="_blank" href="<%= %>" class="btn btn-md btn-default pull-right" >
+              </p>
+              <a target="_blank" href="<%=widget[:google_persone].url %>" class="btn btn-md btn-default pull-right" >
                 <span class="glyphicon glyphicon-forward pull-right"></span>
               </a>
             </div>
