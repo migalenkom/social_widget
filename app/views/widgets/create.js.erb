@@ -1,2 +1,3 @@
 $('#createNewWidget').popover("destroy");
-//$('#membersList').append($("<%#= j render 'member', member:@member, organization:@organization %>"));
+$('#mainContent').append($("<%= j render "#{@created_widget[:provider]}" , widget:@created_widget %>"));
+

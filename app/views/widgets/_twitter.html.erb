@@ -1,8 +1,13 @@
-<div id="fbWidget">
+<div id="<%="#{widget[:widget].id}" %>">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
         <div class="well well-sm">
+          <%=link_to "", user_widget_path(current_user, widget[:widget]),
+                     :method => :delete,
+                     remote: true,
+                     :data => { :confirm => 'Are you sure?' },
+                     :class => 'btn btn-mini glyphicon glyphicon-remove pull-right' %>
           <div class="media">
             <a target="_blank" class="thumbnail pull-left" href="<%= widget[:tw_user].profile_image_url%>">
               <img class="media-object" src="<%=widget[:tw_user].profile_image_url %>">
