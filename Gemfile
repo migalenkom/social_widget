@@ -8,6 +8,7 @@ gem 'sass-rails'
 gem 'uglifier' # , '>= 1.3.0'
 gem 'coffee-rails' # , '~> 4.0.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder' # , '~> 1.2'
 gem 'carrierwave'
@@ -31,7 +32,6 @@ gem 'omniauth-linkedin-oauth2'
 gem 'omniauth-twitter'
 gem 'simple_form'
 gem 'thin'
-
 group :development do
   gem 'guard' # https://github.com/guard/guard
   gem 'guard-cucumber'
