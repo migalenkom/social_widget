@@ -11,8 +11,16 @@
  *= require_self
  *= require_tree .
  *= require twitter/bootstrap
+ *= require font-awesome
+ *= require jquery-ui
  */
 #content {
     padding-top: 40px;
+
+}
+.well-md {
+
+    padding: 20px;
+    border: 1px solid #ddd;
 
 }

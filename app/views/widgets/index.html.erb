@@ -1,29 +1,53 @@
-<div  id="mainContent">
-<h1>Social Widgets</h1>
+<div id="mainContent row">
+    <h1>Social Widgets</h1>
 
-  <ul id="sortable" data-update-url="<%= sort_user_widgets_url %>">
-    <% @result.each do |wdg| %>
-
-       <%= content_tag_for :li, wdg[:widget] do  %>
-        <%= render "#{wdg[:provider]}", widget:wdg  if wdg%>
-
-        <% end %>
-    <% end %>
-  </ul>
+  <div class="column" id="co1_1" data-update-url="<%= sort_user_widgets_url %>">
+    <!--<ul class="list-inline" id="sortable" data-update-url="<%#= sort_user_widgets_url %>">-->
+      <% @result.each do |wdg| %>
+          <%#= content_tag_for :li, wdg[:widget] do %>
+              <div class="portlet">
+                <div class="portlet-header"><%= "#{wdg[:widget].authorization.provider}" %></div>
+                <div class="portlet-content">
+                  <%= render "#{wdg[:provider]}", widget: wdg if wdg %>
+                </div>
+              </div>
+          <% end %>
+      <%#end %>
+    <!--</ul>-->
+  </div>
+  <div class="column" id="co1_2" data-update-url="<%= sort_user_widgets_url %>"></div>
+  <div class="column" id="co1_3" data-update-url="<%= sort_user_widgets_url %>"></div>
 </div>
-<%= link_to "Add widget", new_user_widget_path(current_user), remote:true , id:"createNewWidget", data:{toggle:"popover", container:"body"}, class:"btn btn-md btn-primary" %>
+<div id="row">
+  <div class="col-lg-12">
+<%= link_to "Add widget", new_user_widget_path(current_user), remote: true, id: "createNewWidget", data: {toggle: "popover", container: "body"}, class: "btn btn-md btn-primary" %>
+  </div>
+</div>
 
 <script>
-
     $(function() {
-        $( "#sortable" ).sortable({
-            axis: 'y',
-            cursor: 'move',
-            revert: true,
+        $( ".column" ).sortable({
+            connectWith: ".column",
+            handle: ".portlet-header",
+            cancel: ".portlet-toggle",
+            placeholder: "portlet-placeholder ui-corner-all",
             update: function(e, ui) {
+                debugger;
                 $.post($(this).data('update-url'),$(this).sortable('serialize'))
             }
         });
-        $( "ul, li" ).disableSelection();
+
+        $( ".portlet" )
+                .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+                .find( ".portlet-header" )
+                .addClass( "ui-widget-header ui-corner-all" )
+                .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+
+        $( ".portlet-toggle" ).click(function() {
+            var icon = $( this );
+            icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+            icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+        });
     });
 </script>
+

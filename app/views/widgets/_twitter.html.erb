@@ -1,51 +1,56 @@
-<div id="<%="#{widget[:widget].id}" %>" class="root timeline ltr customisable-border ">
+<div id="<%= "#{widget[:widget].id}" %>" class="root timeline ltr customisable-border ">
   <div class="timeline-header customisable-border">
-    <%=link_to "", user_widget_path(current_user, widget[:widget]),
-               :method => :delete,
-               remote: true,
-               :data => { :confirm => 'Are you sure?' },
-               :class => 'btn btn-mini glyphicon glyphicon-remove ' %>
-    <!--<h1 class="summary">-->
-      <!--<a class="customisable-highlight" href="https://twitter.com/<%#= widget[:tw_user].screen_name %>" title="Твиты от <%#= widget[:tw_user].name %>">Твиты</a>-->
-    <!--</h1>-->
+    <%= link_to "", user_widget_path(current_user, widget[:widget]),
+                :method => :delete,
+                remote: true,
+                :data => {:confirm => 'Are you sure?'},
+                :class => 'btn btn-mini glyphicon glyphicon-remove ' %>
+
     <a target="_blank" class="follow-button profile" href="https://twitter.com/<%= widget[:tw_user].screen_name %>" title="Читать <%= widget[:tw_user].name %> в Твиттере"><i class="ic-button-bird"></i>Читать</a>
   </div>
   <div class="new-tweets-bar">
   </div>
   <div class="stream" style="height: auto; width: auto;">
     <ol class="h-feed">
-      <%  widget[:tw_timeline].each do |msg| %>
+      <% widget[:tw_timeline].each do |msg| %>
 
           <% if msg.text %>
 
-      <li class="h-entry tweet js-tweetIdInfo customisable-border">
-        <div class="header">
-          <div class="h-card p-author">
-            <a target="_blank" class="u-url profile" href="https://twitter.com/<%= widget[:tw_user].screen_name %>">
-              <img class="u-photo avatar" alt="" src="<%= widget[:tw_user].profile_image_url%>" >
+              <li class="h-entry tweet js-tweetIdInfo customisable-border">
+                <div class="header">
+                  <div class="h-card p-author">
+                    <a target="_blank" class="u-url profile" href="https://twitter.com/<%= widget[:tw_user].screen_name %>">
+                      <img class="u-photo avatar" alt="" src="<%= widget[:tw_user].profile_image_url %>">
               <span class="full-name">
                 <span class="p-name customisable-highlight"><%= widget[:tw_user].name %></span>
                 </span>
-              <span class="p-nickname">@<b><%= widget[:tw_user].screen_name %></b></span>
-            </a>
-          </div>
-        </div>
-        <div class="e-entry-content">
-          <p class="e-entry-title"><%= msg.text %></p>
-        </div>
-        <div class="footer customisable-border">
-          <ul class="tweet-actions">
-            <li><a target="_blank" href="https://twitter.com/intent/tweet?in_reply_to=<%= msg.id %>" class="reply-action web-intent" title="Ответить"><i class="ic-reply ic-mask"></i><b>Ответить</b></a></li>
-            <li><a target="_blank" href="https://twitter.com/intent/retweet?tweet_id=<%= msg.id %>" class="retweet-action web-intent" title="Ретвитнуть"><i class="ic-retweet ic-mask"></i><b>Ретвитнуть</b></a></li>
-            <li><a target="_blank" href="https://twitter.com/intent/favorite?tweet_id=<%= msg.id %>" class="favorite-action web-intent" title="В избранное"><i class="ic-fav ic-mask"></i><b>В избранное</b></a></li>
-          </ul>
-        </div>
-      </li>
-          <%end %>
-      <%end%>
+                      <span class="p-nickname">@<b><%= widget[:tw_user].screen_name %></b></span>
+                    </a>
+                  </div>
+                </div>
+                <div class="e-entry-content">
+                  <p class="e-entry-title"><%= msg.text %></p>
+                </div>
+                <div class="footer customisable-border">
+                  <ul class="tweet-actions">
+                    <li>
+                      <a target="_blank" href="https://twitter.com/intent/tweet?in_reply_to=<%= msg.id %>" class="reply-action web-intent" title="Ответить"><i class="ic-reply ic-mask"></i><b>Ответить</b></a>
+                    </li>
+                    <li>
+                      <a target="_blank" href="https://twitter.com/intent/retweet?tweet_id=<%= msg.id %>" class="retweet-action web-intent" title="Ретвитнуть"><i class="ic-retweet ic-mask"></i><b>Ретвитнуть</b></a>
+                    </li>
+                    <li>
+                      <a target="_blank" href="https://twitter.com/intent/favorite?tweet_id=<%= msg.id %>" class="favorite-action web-intent" title="В избранное"><i class="ic-fav ic-mask"></i><b>В
+                        избранное</b></a></li>
+                  </ul>
+                </div>
+              </li>
+          <% end %>
+      <% end %>
     </ol>
   </div>
   <div class="timeline-footer">
-    <a target="_blank" class="tweet-box-button web-intent" href="https://twitter.com/intent/tweet?screen_name=<%= widget[:tw_user].screen_name %>">Отправить твит @<%= widget[:tw_user].screen_name %></a>
+    <a target="_blank" class="tweet-box-button web-intent" href="https://twitter.com/intent/tweet?screen_name=<%= widget[:tw_user].screen_name %>">Отправить
+      твит @<%= widget[:tw_user].screen_name %></a>
   </div>
 </div>

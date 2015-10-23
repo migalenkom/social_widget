@@ -17,6 +17,7 @@ gem 'rmagick'
 gem 'devise'
 gem 'rest-client'
 gem 'bootstrap-sass-rails'
+gem "font-awesome-rails"
 gem 'google-api-client', '0.8.6',  require: 'google/api_client'
 # gem 'signet'
 gem 'google_plus'
