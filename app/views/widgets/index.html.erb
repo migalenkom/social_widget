@@ -1,52 +1,52 @@
 <div id="mainContent row">
-    <h1>Social Widgets</h1>
+  <h1>Social Widgets</h1>
 
-  <div class="column" id="co1_1" data-update-url="<%= sort_user_widgets_url %>">
-    <!--<ul class="list-inline" id="sortable" data-update-url="<%#= sort_user_widgets_url %>">-->
-      <% @result.each do |wdg| %>
-          <%#= content_tag_for :li, wdg[:widget] do %>
-              <div class="portlet">
-                <div class="portlet-header"><%= "#{wdg[:widget].authorization.provider}" %></div>
-                <div class="portlet-content">
-                  <%= render "#{wdg[:provider]}", widget: wdg if wdg %>
-                </div>
-              </div>
-          <% end %>
-      <%#end %>
-    <!--</ul>-->
-  </div>
-  <div class="column" id="co1_2" data-update-url="<%= sort_user_widgets_url %>"></div>
-  <div class="column" id="co1_3" data-update-url="<%= sort_user_widgets_url %>"></div>
+  <% @result.each do |wdg| %>
+
+      <% content_for :"column#{wdg[:widget].col}" do %>
+      <div class="portlet" id="<%= wdg[:widget].id %>">
+        <div class="portlet-header"><%= "#{wdg[:widget].authorization.provider}" %></div>
+        <div class="portlet-content">
+          <%= render "#{wdg[:provider]}", widget: wdg if wdg %>
+        </div>
+      </div>
+      <% end %>
+  <% end %>
+  <div class="column" id="1" data-update-url="<%= sort_user_widgets_url %>"><%= yield :column1 %></div>
+  <div class="column" id="2" data-update-url="<%= sort_user_widgets_url %>"><%= yield :column2 %></div>
+  <div class="column" id="3" data-update-url="<%= sort_user_widgets_url %>"><%= yield :column3 %></div>
 </div>
 <div id="row">
   <div class="col-lg-12">
-<%= link_to "Add widget", new_user_widget_path(current_user), remote: true, id: "createNewWidget", data: {toggle: "popover", container: "body"}, class: "btn btn-md btn-primary" %>
+    <%= link_to "Add widget", new_user_widget_path(current_user), remote: true, id: "createNewWidget", data: {toggle: "popover", container: "body"}, class: "btn btn-md btn-primary" %>
   </div>
 </div>
 
 <script>
-    $(function() {
-        $( ".column" ).sortable({
+    $(function () {
+        $(".column").sortable({
             connectWith: ".column",
             handle: ".portlet-header",
             cancel: ".portlet-toggle",
             placeholder: "portlet-placeholder ui-corner-all",
-            update: function(e, ui) {
-                debugger;
-                $.post($(this).data('update-url'),$(this).sortable('serialize'))
+            update: function (e, ui) {
+                $.post($(this).data('update-url'), {
+                    column: $(this).sortable().attr('id'),
+                    widget: $(this).sortable('toArray')
+                })
             }
         });
 
-        $( ".portlet" )
-                .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
-                .find( ".portlet-header" )
-                .addClass( "ui-widget-header ui-corner-all" )
-                .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+        $(".portlet")
+                .addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+                .find(".portlet-header")
+                .addClass("ui-widget-header ui-corner-all")
+                .prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
 
-        $( ".portlet-toggle" ).click(function() {
-            var icon = $( this );
-            icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
-            icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+        $(".portlet-toggle").click(function () {
+            var icon = $(this);
+            icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+            icon.closest(".portlet").find(".portlet-content").toggle();
         });
     });
 </script>
