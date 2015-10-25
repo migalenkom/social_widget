@@ -4,12 +4,9 @@
   <% @result.each do |wdg| %>
 
       <% content_for :"column#{wdg[:widget].col}" do %>
-      <div class="portlet" id="<%= wdg[:widget].id %>">
-        <div class="portlet-header"><%= "#{wdg[:widget].authorization.provider}" %></div>
-        <div class="portlet-content">
-          <%= render "#{wdg[:provider]}", widget: wdg if wdg %>
-        </div>
-      </div>
+
+      <%= render 'widget', wdg:wdg %>
+
       <% end %>
   <% end %>
   <div class="column" id="1" data-update-url="<%= sort_user_widgets_url %>"><%= yield :column1 %></div>
@@ -24,6 +21,23 @@
 
 <script>
     $(function () {
+
+        $('.portlet').each(function(index, widget){
+
+         loadWidgetContentIfVisible(widget)
+
+        });
+
+        $('.portlet .portlet-toggle').each(function(index, icon){
+            var $icon = $(icon);
+            var $widget = $icon.closest(".portlet");
+            onFirstExpandWidget($widget)
+        });
+
+        $(".portlet-toggle").click(function () {
+            onToggleWidgetContent(this)
+        });
+
         $(".column").sortable({
             connectWith: ".column",
             handle: ".portlet-header",
@@ -32,21 +46,9 @@
             update: function (e, ui) {
                 $.post($(this).data('update-url'), {
                     column: $(this).sortable().attr('id'),
-                    widget: $(this).sortable('toArray')
+                    widget: $(this).sortable('toArray',{attribute:'data-widget_id'})
                 })
             }
-        });
-
-        $(".portlet")
-                .addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-                .find(".portlet-header")
-                .addClass("ui-widget-header ui-corner-all")
-                .prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-        $(".portlet-toggle").click(function () {
-            var icon = $(this);
-            icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-            icon.closest(".portlet").find(".portlet-content").toggle();
         });
     });
 </script>

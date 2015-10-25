@@ -9,6 +9,8 @@ SociaLoginRails::Application.routes.draw do
   resources :users do
     resources :widgets do
       collection {post :sort}
+      collection {post :widgetState}
+      member {get :getWidgetData}
     end
 
   end

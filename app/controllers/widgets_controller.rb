@@ -1,13 +1,14 @@
 class WidgetsController < ApplicationController
 
-  before_filter :set_widget, only: [:show, :edit, :update, :destroy]
+  before_filter :set_widget, only: [:show, :edit, :update, :destroy, :getWidgetData]
 
   def index
 
     @widgets = current_user.widgets.order("position")
     @result = []
     @widgets.each do |w|
-      @result << self.send("fetch_#{w.authorization.provider}_data",w)
+      # @result << self.send("fetch_#{w.authorization.provider}_data",w)
+      @result <<  {widget:w }
     end
 
   end
@@ -54,13 +55,26 @@ class WidgetsController < ApplicationController
   end
 
   def sort
-
     params[:widget].each_with_index do |id, index|
 
        Widget.where(id: id).update_all(position: index+1, col:params[:column])
 
     end
     render nothing: true
+  end
+
+  def widgetState
+
+    Widget.find_by_id(params[:id]).update(state: params[:state])
+    render nothing: true
+
+  end
+
+  def getWidgetData
+
+    @result = self.send("fetch_#{@widget.authorization.provider}_data",@widget) if @widget
+    render partial:"#{@widget.authorization.provider}",:locals => { widget: @result} if @result
+
   end
 
   private

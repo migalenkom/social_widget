@@ -1,3 +1,9 @@
 $('#createNewWidget').popover("destroy");
-$('#1').append($("<%= j render "#{@created_widget[:provider]}" , widget:@created_widget %>"));
+var createdWidget = $("<%= j render "widget" , wdg:@created_widget %>")
+$('.column').first().append(createdWidget);
+loadWidgetContentIfVisible(createdWidget);
+onFirstExpandWidget(createdWidget);
+createdWidget.find(".portlet-toggle").click(function () {
+    onToggleWidgetContent(this)
+});
 

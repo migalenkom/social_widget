@@ -1,0 +1,14 @@
+<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
+     data-widget_id="<%= wdg[:widget].id %>">
+  <div class="portlet-header ui-widget-header ui-corner-all">
+          <span class='ui-icon ui-icon-<%=wdg[:widget].state ? 'minusthick' : 'plusthick' %> portlet-toggle'
+                data-update-url="<%= widgetState_user_widgets_url %>"
+                data-widget_id="<%= wdg[:widget].id %>">
+
+          </span>
+    <%= "#{wdg[:widget].authorization.provider}" %></div>
+  <div class="portlet-content <%=wdg[:widget].state ? '' : 'hidden' %>"
+       data-content-url="<%= getWidgetData_user_widget_url(current_user,wdg[:widget].id)%>">
+    <i class="fa fa-3x fa-spinner fa-spin col-lg-offset-5"></i>
+  </div>
+</div>
