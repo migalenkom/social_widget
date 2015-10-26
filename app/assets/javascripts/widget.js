@@ -29,7 +29,7 @@ var onToggleWidgetContent = function (icon) {
     var $icon = $(icon);
     var $widget = $icon.closest(".portlet");
     $icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-    $widget.find(".portlet-content").toggleClass("hidden");
+    $widget.find(".portlet-content").slideToggle(800);
     $.post($icon.data('update-url'), {
         id: $icon.data("widget_id"),
         state: $widget.find(".portlet-content").is(":visible")

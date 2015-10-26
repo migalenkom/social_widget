@@ -38,6 +38,6 @@ class UsersController < ApplicationController
 
     # 2015-07-23 RICHARD: Added to implement strong parameters
     def user_params
-      params.require(:user).permit(:name, :user, :about)
+      params.require(:user).permit(:name, :user, :about, :image)
     end
   end

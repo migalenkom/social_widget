@@ -1,7 +1,8 @@
-<%= simple_form_for @user do |f| %>
+<%= simple_form_for @user, :html => { :multipart => true }  do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.file_field :image %>
     <%= f.input :name, :required => true, :autofocus => true %>
     <%= f.input :about, :required => true %>
   </div>

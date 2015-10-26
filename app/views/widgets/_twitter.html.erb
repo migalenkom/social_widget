@@ -1,6 +1,7 @@
 <div id="wdg_<%= "#{widget[:widget].id}" %>" class="root timeline ltr customisable-border ">
   <div class="timeline-header customisable-border">
-    <a target="_blank" class="follow-button profile" href="https://twitter.com/<%= widget[:tw_user].screen_name %>" title="Читать <%= widget[:tw_user].name %> в Твиттере"><i class="ic-button-bird"></i>Читать</a>
+    <a target="_blank" class="follow-button profile" href="https://twitter.com/<%= widget[:tw_user].screen_name %>"
+       title="Читать <%= widget[:tw_user].name %> в Твиттере"><i class="ic-button-bird"></i>Читать</a>
   </div>
   <div class="new-tweets-bar">
   </div>
@@ -28,13 +29,16 @@
                 <div class="footer customisable-border">
                   <ul class="tweet-actions">
                     <li>
-                      <a target="_blank" href="https://twitter.com/intent/tweet?in_reply_to=<%= msg.id %>" class="reply-action web-intent" title="Ответить"><i class="ic-reply ic-mask"></i><b>Ответить</b></a>
+                      <a target="_blank" href="https://twitter.com/intent/tweet?in_reply_to=<%= msg.id %>"
+                         class="reply-action web-intent" title="Ответить"><i class="ic-reply ic-mask"></i><b>Ответить</b></a>
                     </li>
                     <li>
-                      <a target="_blank" href="https://twitter.com/intent/retweet?tweet_id=<%= msg.id %>" class="retweet-action web-intent" title="Ретвитнуть"><i class="ic-retweet ic-mask"></i><b>Ретвитнуть</b></a>
+                      <a target="_blank" href="https://twitter.com/intent/retweet?tweet_id=<%= msg.id %>"
+                         class="retweet-action web-intent" title="Ретвитнуть"><i class="ic-retweet ic-mask"></i><b>Ретвитнуть</b></a>
                     </li>
                     <li>
-                      <a target="_blank" href="https://twitter.com/intent/favorite?tweet_id=<%= msg.id %>" class="favorite-action web-intent" title="В избранное"><i class="ic-fav ic-mask"></i><b>В
+                      <a target="_blank" href="https://twitter.com/intent/favorite?tweet_id=<%= msg.id %>"
+                         class="favorite-action web-intent" title="В избранное"><i class="ic-fav ic-mask"></i><b>В
                         избранное</b></a></li>
                   </ul>
                 </div>
@@ -44,7 +48,8 @@
     </ol>
   </div>
   <div class="timeline-footer">
-    <a target="_blank" class="tweet-box-button web-intent" href="https://twitter.com/intent/tweet?screen_name=<%= widget[:tw_user].screen_name %>">Отправить
+    <a target="_blank" class="tweet-box-button web-intent"
+       href="https://twitter.com/intent/tweet?screen_name=<%= widget[:tw_user].screen_name %>">Отправить
       твит @<%= widget[:tw_user].screen_name %></a>
   </div>
 </div>
