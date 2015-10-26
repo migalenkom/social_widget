@@ -1,5 +1,9 @@
 <div id="mainContent row">
+
   <h1>Social Widgets</h1>
+    <div class="row">
+        <div class="btn btn-warning btn-sm pull-right" id="toggle" data-role="button">Toggle all</div>
+    </div>
 
   <% @result.each do |wdg| %>
 
@@ -31,12 +35,19 @@
         $('.portlet .portlet-toggle').each(function(index, icon){
             var $icon = $(icon);
             var $widget = $icon.closest(".portlet");
-            onFirstExpandWidget($widget)
+            onFirstExpandWidget($widget);
         });
 
         $(".portlet-toggle").click(function () {
             onToggleWidgetContent(this)
         });
+
+        $("#toggle").click( function(){
+             $(".portlet-toggle").each(function(index, value){
+                 value.click();
+            });
+        });
+
 
         $(".column").sortable({
             connectWith: ".column",

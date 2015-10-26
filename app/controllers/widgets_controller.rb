@@ -55,10 +55,13 @@ class WidgetsController < ApplicationController
   end
 
   def sort
-    params[:widget].each_with_index do |id, index|
 
-       Widget.where(id: id).update_all(position: index+1, col:params[:column])
+    if params[:widget].present?
+      params[:widget].each_with_index do |id, index|
 
+         Widget.where(id: id).update_all(position: index+1, col:params[:column])
+
+      end
     end
     render nothing: true
   end
