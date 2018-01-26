@@ -7,7 +7,10 @@ SociaLoginRails::Application.routes.draw do
   get "pages/landing"
 
   resources :users do
-    resources :widgets
+    resources :widgets do
+      collection {post :sort}
+    end
+
   end
 
   root :to => 'pages#landing'

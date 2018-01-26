@@ -4,7 +4,7 @@ class WidgetsController < ApplicationController
 
   def index
 
-    @widgets = current_user.widgets
+    @widgets = current_user.widgets.order("position")
     @result = []
     @widgets.each do |w|
       @result << self.send("fetch_#{w.authorization.provider}_data",w)
@@ -53,6 +53,16 @@ class WidgetsController < ApplicationController
 
   end
 
+  def sort
+
+    params[:widget].each_with_index do |id, index|
+
+      Widget.where(id: id).update_all(position: index+1)
+
+    end
+    render nothing: true
+  end
+
   private
 
   def fetch_facebook_data(widget)
@@ -89,17 +99,12 @@ class WidgetsController < ApplicationController
        {widget:widget, provider: auth.provider, google_persone: googlePerson, google_activity: googleActivity }
   end
 
-  def refresh_auth_token(auth)
-
-  end
-
-
-
   def set_widget
 
     @widget = Widget.find(params[:id])
 
   end
+
 
   def widget_params
     params.require(:widget).permit(:id,:title,:authorization_id,)

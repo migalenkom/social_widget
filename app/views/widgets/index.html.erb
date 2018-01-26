@@ -1,10 +1,29 @@
 <div  id="mainContent">
 <h1>Social Widgets</h1>
 
-<% @result.each do |wdg| %>
+  <ul id="sortable" data-update-url="<%= sort_user_widgets_url %>">
+    <% @result.each do |wdg| %>
 
-<%= render "#{wdg[:provider]}", widget:wdg  if wdg%>
+       <%= content_tag_for :li, wdg[:widget] do  %>
+        <%= render "#{wdg[:provider]}", widget:wdg  if wdg%>
 
-<% end %>
+        <% end %>
+    <% end %>
+  </ul>
 </div>
 <%= link_to "Add widget", new_user_widget_path(current_user), remote:true , id:"createNewWidget", data:{toggle:"popover", container:"body"}, class:"btn btn-md btn-primary" %>
+
+<script>
+
+    $(function() {
+        $( "#sortable" ).sortable({
+            axis: 'y',
+            cursor: 'move',
+            revert: true,
+            update: function(e, ui) {
+                $.post($(this).data('update-url'),$(this).sortable('serialize'))
+            }
+        });
+        $( "ul, li" ).disableSelection();
+    });
+</script>
